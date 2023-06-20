@@ -11,10 +11,13 @@ async def kb_time_to_sign(state: FSMContext):
     main_button = []
     print(selected)   
     for time in LEXICON_RU_MULTI_SELECT_BUTTON['times_to_sign']:
-        if selected and time in selected['select_button'] and LEXICON_RU_MULTI_SELECT_BUTTON['times_to_sign'].count(time)%2==1:
-            main_button.append(InlineKeyboardButton(text=f"[{time}]", callback_data=time))
+        if selected and time in selected['select_button']:
+            main_button.append(InlineKeyboardButton(text=f"[{time}]",
+                               callback_data=time))
         else:
-            main_button.append(InlineKeyboardButton(text=f"{time}", callback_data=time))
+            main_button.append(InlineKeyboardButton(text=f"{time}",
+                               callback_data=time))
     kb.row(*main_button, width=5)
-    kb.row(InlineKeyboardButton(text=LEXICON_RU_BUTTON["time_selected"], callback_data="time_selected"), width=1)
+    kb.row(InlineKeyboardButton(text=LEXICON_RU_BUTTON["time_selected"],
+                                callback_data="time_selected"), width=1)
     return kb.as_markup()
