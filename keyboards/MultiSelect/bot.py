@@ -3,7 +3,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from handlers.handler import multi_select_router
 
-TOKEN = "6095290433:AAE6t3nVcf9nNGOKdqVLZwobmy7hJuy-DWI"
+TOKEN = ""
 storage: MemoryStorage = MemoryStorage()
 bot: Bot = Bot(TOKEN)
 dp: Dispatcher = Dispatcher()
