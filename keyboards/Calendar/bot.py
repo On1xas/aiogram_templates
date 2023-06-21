@@ -13,4 +13,3 @@ dp.include_router(router_calendar)
 
 if __name__ == "__main__":
     dp.run_polling(bot)
-
