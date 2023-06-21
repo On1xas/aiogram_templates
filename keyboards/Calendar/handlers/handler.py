@@ -4,7 +4,7 @@ from aiogram import Router
 from aiogram.filters import CommandStart, Text
 from aiogram.types import CallbackQuery, Message
 
-from database.database import user_db, user_dict_template
+from database.database import user_db
 from filters.filter import FilterCalendar, FilterDateCalendar
 from keyboards.keyboard import kb_calendar
 
@@ -23,6 +23,7 @@ async def next_back_month(callback: CallbackQuery):
         if user_db[callback.from_user.id]["month"] <= 0:
             user_db[callback.from_user.id]["month"] = 12
             user_db[callback.from_user.id]["year"] -= 1
+    print(user_db)
     await callback.message.edit_text(text=callback.message.text,
                                      reply_markup=kb_calendar(month=user_db[callback.from_user.id]["month"], year=user_db[callback.from_user.id]["year"]))
 
@@ -37,7 +38,8 @@ async def date_calendar(callback: CallbackQuery):
 @router_calendar.message(CommandStart())
 async def start(message: Message):
     if message.from_user.id not in user_db:
-        user_db[message.from_user.id] = user_dict_template
+        print(message.from_user.id, "ADDED IN DB")
+        user_db[message.from_user.id]=dict()
         user_db[message.from_user.id]["month"] = datetime.datetime.now().month
         user_db[message.from_user.id]["year"] = datetime.datetime.now().year
     await message.answer(text="Hello Calendar", reply_markup=kb_calendar())
