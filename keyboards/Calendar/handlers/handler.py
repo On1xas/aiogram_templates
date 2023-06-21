@@ -1,4 +1,5 @@
 import datetime
+from copy import deepcopy
 
 from aiogram import Router
 from aiogram.filters import CommandStart, Text
@@ -37,7 +38,7 @@ async def date_calendar(callback: CallbackQuery):
 @router_calendar.message(CommandStart())
 async def start(message: Message):
     if message.from_user.id not in user_db:
-        user_db[message.from_user.id] = user_dict_template
+        user_db[message.from_user.id] = deepcopy(user_dict_template)
         user_db[message.from_user.id]["month"] = datetime.datetime.now().month
         user_db[message.from_user.id]["year"] = datetime.datetime.now().year
     await message.answer(text="Hello Calendar", reply_markup=kb_calendar())
