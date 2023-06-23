@@ -24,6 +24,7 @@ async def next_back_month(callback: CallbackQuery):
         if user_db[callback.from_user.id]["month"] <= 0:
             user_db[callback.from_user.id]["month"] = 12
             user_db[callback.from_user.id]["year"] -= 1
+    print(user_db)
     await callback.message.edit_text(text=callback.message.text,
                                      reply_markup=kb_calendar(month=user_db[callback.from_user.id]["month"], year=user_db[callback.from_user.id]["year"]))
 
