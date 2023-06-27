@@ -5,7 +5,7 @@ from aiogram.fsm.context import FSMContext
 from FSM.fsm import FSMuser_state
 
 from keyboards.kb import start_kb
-
+from database.database_service import RequestDB
 class StateControsUserMiddleware(BaseMiddleware):
     async def __call__(
         self,
@@ -24,3 +24,16 @@ class StateControsUserMiddleware(BaseMiddleware):
             print("NOT BLOCKED")
             result = await handler(event, data)
             return result
+
+class InitUSers(BaseMiddleware):
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
+        data: Dict[str, Any]
+    ) -> Any:
+
+        db: RequestDB = RequestDB(connection=data['db_connect'])
+        await db.add_user(user_id=data['event_from_user'].id, user_name=data['event_from_user'].username)
+        result = await handler(event, data)
+        return result
