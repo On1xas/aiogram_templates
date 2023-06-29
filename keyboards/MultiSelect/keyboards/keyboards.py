@@ -9,10 +9,9 @@ async def kb_time_to_sign(state: FSMContext):
     kb = InlineKeyboardBuilder()
     selected = await state.get_data()
     main_button = []
-    print(selected)   
     for time in LEXICON_RU_MULTI_SELECT_BUTTON['times_to_sign']:
         if selected and time in selected['select_button']:
-            main_button.append(InlineKeyboardButton(text=f"[{time}]",
+            main_button.append(InlineKeyboardButton(text=f"🔹{time}🔹",
                                callback_data=time))
         else:
             main_button.append(InlineKeyboardButton(text=f"{time}",

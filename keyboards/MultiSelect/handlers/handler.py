@@ -18,7 +18,6 @@ async def start(message: Message):
 async def process_start_command(message: Message, state: FSMContext):
     await message.answer(text='Тут мы тестим мульти селект', reply_markup=await kb_time_to_sign(state=state))
     await state.update_data(select_button=[])
-    print(await state.get_data())
     await state.set_state(FSM_MultiSelect.stage1)
 
 
